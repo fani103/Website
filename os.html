@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faneesh Portfolio</title>
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:#f5f5f5;
+    color:#333;
+}
+
+/* Header */
+header{
+    text-align:center;
+    padding:3rem 1rem;
+    background:#1e1e2f;
+    color:white;
+}
+header span{
+    color:#00bcd4;
+}
+
+/* Projects */
+#projects{
+    padding:2rem;
+    text-align:center;
+}
+.grid{
+    display:flex;
+    gap:1rem;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+.card{
+    background:white;
+    border-radius:10px;
+    padding:1rem;
+    width:250px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+.card:hover{
+    transform:translateY(-8px);
+}
+.card img{
+    width:100%;
+    border-radius:10px;
+}
+
+/* Contact */
+#contact{
+    padding:2rem;
+    text-align:center;
+    background:#ffffff;
+}
+form input,
+form textarea{
+    width:80%;
+    padding:0.7rem;
+    margin:0.5rem 0;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+button{
+    padding:0.8rem 1.5rem;
+    border:none;
+    background:#00bcd4;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+}
+button:hover{
+    background:#0097a7;
+}
+
+/* Footer */
+footer{
+    text-align:center;
+    padding:1rem;
+    background:#1e1e2f;
+    color:white;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Hi, I'm <span>Faneesh</span></h1>
+    <p>Web Developer • Designer • Creator</p>
+</header>
+
+<section id="projects">
+    <h2>My Projects</h2>
+    <div class="grid">
+        <div class="card">
+            <img src="https://via.placeholder.com/250" alt="Project 1">
+            <h3>Portfolio Website</h3>
+            <p>Personal responsive portfolio using HTML & CSS.</p>
+        </div>
+
+        <div class="card">
+            <img src="https://via.placeholder.com/250" alt="Project 2">
+            <h3>Calculator App</h3>
+            <p>Simple calculator built using JavaScript.</p>
+        </div>
+
+        <div class="card">
+            <img src="https://via.placeholder.com/250" alt="Project 3">
+            <h3>To-Do List</h3>
+            <p>Task manager web app with local storage.</p>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <h2>Contact Me</h2>
+    <form>
+        <input type="text" placeholder="Your Name" required><br>
+        <input type="email" placeholder="Your Email" required><br>
+        <textarea rows="4" placeholder="Your Message" required></textarea><br>
+        <button type="submit">Send Message</button>
+    </form>
+</section>
+
+<footer>
+    <p>© 2026 Faneesh | All Rights Reserved</p>
+</footer>
+
+</body>
+</html>
