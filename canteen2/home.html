@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Canteen - Menu</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo">🍽️ Modern Canteen</div>
+            <div class="nav-items">
+                <a href="home.html" class="nav-link active">Menu</a>
+                <a href="cart.html" class="nav-link">
+                    <span class="cart-icon">🛒</span>
+                    Cart <span id="cart-count" class="badge">0</span>
+                </a>
+                <div class="nav-profile">
+                    <span id="user-name">User</span>
+                    <button onclick="logout()" class="btn-logout">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero-banner">
+        <div class="hero-content">
+            <input type="text" id="search-input" class="search-box" placeholder="🔍 Search for food...">
+            <button onclick="searchFood()" class="btn-search">Search</button>
+        </div>
+    </div>
+
+    <main class="container">
+        <h2>Food Menus</h2>
+        <div id="menu-items" class="menu-grid"></div>
+    </main>
+
+    <footer class="footer">
+        <p>Powered by Modern Canteen &copy; 2026</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

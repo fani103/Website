@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="confirmation-page">
+    <div class="confirmation-container">
+        <div class="success-icon">✅</div>
+        <h1>Order Placed Successfully!</h1>
+        
+        <div class="confirmation-details">
+            <p id="order-details"></p>
+            <p id="order-time"></p>
+            <p id="estimated-time"></p>
+        </div>
+
+        <div class="confirmation-actions">
+            <button onclick="window.location.href='home.html'" class="btn-primary">Order More</button>
+            <button onclick="logout()" class="btn-secondary">Logout</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

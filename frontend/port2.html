@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Profile - fani103</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #0d1117;
+            --secondary-color: #161b22;
+            --accent-color: #58a6ff;
+            --text-color: #e6edf3;
+            --muted-color: #8b949e;
+            --success-color: #3fb950;
+            --warning-color: #d29922;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-color), #79c0ff);
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            box-shadow: 0 0 30px rgba(88, 166, 255, 0.3);
+            animation: bounce 2s infinite;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--accent-color), #79c0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            color: var(--muted-color);
+            margin-bottom: 20px;
+        }
+
+        .bio {
+            font-size: 1.1em;
+            color: var(--text-color);
+            max-width: 600px;
+            margin: 20px auto;
+            line-height: 1.8;
+        }
+
+        /* Navigation */
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            padding: 10px 20px;
+            background: var(--secondary-color);
+            color: var(--accent-color);
+            text-decoration: none;
+            border-radius: 6px;
+            border: 1px solid var(--accent-color);
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+            background: var(--accent-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(88, 166, 255, 0.2);
+        }
+
+        /* Main Content */
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: var(--secondary-color);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(88, 166, 255, 0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .card:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 30px rgba(88, 166, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+        .card li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(88, 166, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card li:last-child {
+            border-bottom: none;
+        }
+
+        .card li::before {
+            content: "▸";
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .skill-badge {
+            background: linear-gradient(135deg, rgba(88, 166, 255, 0.2), rgba(63, 185, 80, 0.2));
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid var(--accent-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-badge:hover {
+            background: linear-gradient(135deg, rgba(88, 166, 255, 0.4), rgba(63, 185, 80, 0.4));
+            transform: scale(1.05);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .project-card {
+            background: var(--secondary-color);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(88, 166, 255, 0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 40px rgba(88, 166, 255, 0.2);
+            transform: translateY(-10px);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, rgba(88, 166, 255, 0.15), rgba(63, 185, 80, 0.15));
+            padding: 20px;
+            border-bottom: 1px solid var(--accent-color);
+        }
+
+        .project-title {
+            font-size: 1.4em;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .project-desc {
+            color: var(--muted-color);
+            font-size: 0.95em;
+        }
+
+        .project-content {
+            padding: 20px;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .tag {
+            background: rgba(88, 166, 255, 0.2);
+            color: var(--accent-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: var(--accent-color);
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            background: #79c0ff;
+            transform: translateX(5px);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            margin-bottom: 60px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: var(--secondary-color);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(88, 166, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 30px rgba(88, 166, 255, 0.15);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--muted-color);
+            font-size: 0.95em;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(88, 166, 255, 0.1);
+            color: var(--muted-color);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            transition: all 0.3s ease;
+            font-size: 1.2em;
+        }
+
+        .social-link:hover {
+            background: var(--accent-color);
+            color: var(--primary-color);
+            transform: scale(1.1) translateY(-3px);
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .content {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                flex-direction: column;
+            }
+
+            .nav-links a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary-color);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-color);
+            color: var(--primary-color);
+        }
+
+        /* Light Theme */
+        body.light-theme {
+            --primary-color: #ffffff;
+            --secondary-color: #f6f8fa;
+            --text-color: #24292e;
+            --muted-color: #6a737d;
+            --accent-color: #0366d6;
+        }
+
+        body.light-theme .card,
+        body.light-theme .project-card,
+        body.light-theme .stat-card,
+        body.light-theme .theme-toggle {
+            background: var(--secondary-color);
+            border-color: rgba(3, 102, 214, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" id="themeToggle" title="Toggle theme">🌙</button>
+
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="profile-avatar">👨‍💻</div>
+            <h1>Hi, I'm fani103! 👋</h1>
+            <p class="subtitle">Full-Stack Developer | Open Source Enthusiast</p>
+            <p class="bio">
+                Welcome to my GitHub profile! I'm passionate about building innovative solutions and contributing to the open-source community. I love turning ideas into reality with clean, efficient code.
+            </p>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </header>
+
+        <!-- About & What I Do -->
+        <section class="content">
+            <div class="card">
+                <h2>💼 About Me</h2>
+                <ul>
+                    <li>Full-Stack Developer passionate about web technologies</li>
+                    <li>Open-source contributor with 5+ years of experience</li>
+                    <li>Focus on clean code and best practices</li>
+                    <li>Always learning and exploring new technologies</li>
+                    <li>Collaborative team player and problem solver</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>🚀 What I Do</h2>
+                <ul>
+                    <li><strong>Web Development:</strong> React, Vue.js, Next.js</li>
+                    <li><strong>Backend:</strong> Node.js, Python, REST APIs</li>
+                    <li><strong>Databases:</strong> PostgreSQL, MongoDB, Redis</li>
+                    <li><strong>DevOps:</strong> Docker, CI/CD, AWS</li>
+                    <li><strong>Open Source:</strong> Contributing & maintaining projects</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Tech Stack -->
+        <section class="card" style="margin-bottom: 60px;">
+            <h2>🛠️ Tech Stack</h2>
+            <div class="skills-grid" id="skillsGrid">
+                <div class="skill-badge">JavaScript</div>
+                <div class="skill-badge">TypeScript</div>
+                <div class="skill-badge">React</div>
+                <div class="skill-badge">Vue.js</div>
+                <div class="skill-badge">Node.js</div>
+                <div class="skill-badge">Python</div>
+                <div class="skill-badge">PostgreSQL</div>
+                <div class="skill-badge">MongoDB</div>
+                <div class="skill-badge">Docker</div>
+                <div class="skill-badge">Git</div>
+                <div class="skill-badge">AWS</div>
+                <div class="skill-badge">REST APIs</div>
+            </div>
+        </section>
+
+        <!-- Featured Projects -->
+        <section id="projects">
+            <h2 style="font-size: 2em; margin-bottom: 30px; color: var(--accent-color);">🎯 Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-title">Project One</div>
+                        <div class="project-desc">An innovative solution for modern web development</div>
+                    </div>
+                    <div class="project-content">
+                        <p style="color: var(--muted-color); margin-bottom: 15px;">
+                            A full-stack application that demonstrates best practices in web development with real-time updates and scalable architecture.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">Node.js</span>
+                            <span class="tag">MongoDB</span>
+                        </div>
+                        <a href="#" class="project-link">View Repository →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-title">Project Two</div>
+                        <div class="project-desc">Open-source library for developers</div>
+                    </div>
+                    <div class="project-content">
+                        <p style="color: var(--muted-color); margin-bottom: 15px;">
+                            A powerful and flexible library that helps developers build better applications faster with minimal boilerplate.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">TypeScript</span>
+                            <span class="tag">Vue.js</span>
+                            <span class="tag">Testing</span>
+                        </div>
+                        <a href="#" class="project-link">View Repository →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-title">Project Three</div>
+                        <div class="project-desc">Real-time collaboration platform</div>
+                    </div>
+                    <div class="project-content">
+                        <p style="color: var(--muted-color); margin-bottom: 15px;">
+                            A cutting-edge platform enabling seamless real-time collaboration with WebSocket integration and modern UI patterns.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">WebSockets</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">PostgreSQL</span>
+                        </div>
+                        <a href="#" class="project-link">View Repository →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <h2 style="font-size: 2em; margin-bottom: 30px; color: var(--accent-color);">📊 GitHub Stats</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="repos">42</div>
+                    <div class="stat-label">Public Repositories</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="contributions">1.2K</div>
+                    <div class="stat-label">Total Contributions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="followers">380</div>
+                    <div class="stat-label">Followers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="stars">890</div>
+                    <div class="stat-label">Stars Received</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <h3 style="color: var(--accent-color); margin-bottom: 20px;">📫 Let's Connect</h3>
+        <div class="social-links">
+            <a href="#" class="social-link" title="GitHub">🐙</a>
+            <a href="#" class="social-link" title="LinkedIn">💼</a>
+            <a href="#" class="social-link" title="Twitter">🐦</a>
+            <a href="#" class="social-link" title="Email">✉️</a>
+        </div>
+        <p>Made with ❤️ by fani103</p>
+        <p style="margin-top: 10px; font-size: 0.9em;">© 2026 All rights reserved</p>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-theme');
+            themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-theme');
+            const isLight = document.body.classList.contains('light-theme');
+            themeToggle.textContent = isLight ? '☀️' : '🌙';
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const element = document.querySelector(href);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        // Animate Numbers
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 30);
+        }
+
+        // Trigger animations when stats section is visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.animated) {
+                    entry.target.dataset.animated = 'true';
+                    animateCounter(document.getElementById('repos'), 42);
+                    animateCounter(document.getElementById('contributions'), 1200);
+                    animateCounter(document.getElementById('followers'), 380);
+                    animateCounter(document.getElementById('stars'), 890);
+                }
+            });
+        });
+
+        observer.observe(document.querySelector('.stats-section'));
+
+        // Skill Badge Interaction
+        document.querySelectorAll('.skill-badge').forEach(badge => {
+            badge.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 100);
+            });
+        });
+
+        // Scroll to top on page load
+        window.addEventListener('load', () => {
+            window.scrollTo(0, 0);
+        });
+    </script>
+</body>
+</html>
