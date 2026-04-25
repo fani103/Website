@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking Success - Fun Travels</title>
+<script src="loader.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --primary:#16A34A;
+  --primary-dark:#166534;
+  --primary-soft:#DCFCE7;
+
+  --accent:#14B8A6;
+  --accent-soft:#CCFBF1;
+
+  --bg:#F0FDF4;
+  --card:#FFFFFF;
+  --text:#052E16;
+  --muted:#4B5563;
+  --line:#D1FAE5;
+
+  --shadow:0 12px 30px rgba(0,0,0,.08);
+}
+
+body{
+  font-family:'Segoe UI', sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+/* HEADER */
+.header{
+  background:#fff;
+  border-bottom:1px solid var(--line);
+}
+
+.top{
+  max-width:900px;
+  margin:auto;
+  padding:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.brand{
+  font-weight:900;
+  font-size:1.3rem;
+}
+
+/* BUTTONS */
+.btn{
+  border:none;
+  padding:10px 14px;
+  border-radius:12px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.btn-dark{
+  background:#111;
+  color:#fff;
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  color:#fff;
+}
+
+.btn-light{
+  background:#fff;
+  border:1px solid var(--line);
+}
+
+/* MAIN */
+.wrap{
+  max-width:900px;
+  margin:30px auto;
+  padding:0 16px;
+}
+
+.card{
+  background:#fff;
+  border-radius:20px;
+  padding:26px;
+  box-shadow:var(--shadow);
+}
+
+/* SUCCESS ICON */
+.success-icon{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--primary),var(--accent));
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:45px;
+  margin:auto;
+}
+
+/* TEXT */
+.title{
+  text-align:center;
+  font-size:28px;
+  font-weight:900;
+  margin-top:14px;
+}
+
+.sub{
+  text-align:center;
+  color:var(--muted);
+  margin:10px 0 20px;
+}
+
+/* TICKET */
+.ticket{
+  border:2px dashed var(--line);
+  border-radius:18px;
+  padding:18px;
+  background:#F9FFFB;
+}
+
+.route{
+  text-align:center;
+  font-size:22px;
+  font-weight:900;
+  margin-bottom:14px;
+}
+
+/* ROWS */
+.meta-row{
+  display:flex;
+  justify-content:space-between;
+  padding:10px 0;
+  border-bottom:1px solid #eee;
+  font-weight:700;
+  flex-wrap:wrap;
+}
+
+/* EMAIL SECTION */
+.email-section{
+  margin-top:20px;
+  padding:20px;
+  background:linear-gradient(135deg,#F0FDF4,#DCFCE7);
+  border-radius:16px;
+  border:1px solid #bbf7d0;
+}
+
+.email-section h4{
+  font-size:16px;
+  font-weight:900;
+  margin-bottom:12px;
+  color:#166534;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.email-input-group{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.email-input{
+  flex:1;
+  padding:14px 16px;
+  border:2px solid #bbf7d0;
+  border-radius:14px;
+  font-size:15px;
+  font-weight:500;
+  background:#fff;
+  color:#052E16;
+  transition:all 0.2s ease;
+  outline:none;
+}
+
+.email-input:focus{
+  border-color:#16a34a;
+  box-shadow:0 0 0 3px rgba(22,163,74,0.2);
+}
+
+.email-input::placeholder{
+  color:#9ca3af;
+  font-weight:400;
+}
+
+.send-email-btn{
+  background:linear-gradient(135deg,#16a34a,#14b8a6);
+  color:#fff;
+  border:none;
+  padding:14px 24px;
+  border-radius:14px;
+  font-weight:800;
+  cursor:pointer;
+  transition:all 0.2s ease;
+  white-space:nowrap;
+}
+
+.send-email-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(22,163,74,0.3);
+}
+
+.email-message{
+  margin-top:12px;
+  font-size:13px;
+  font-weight:600;
+  padding:8px 12px;
+  border-radius:10px;
+  display:none;
+}
+
+.email-message.success{
+  background:#dcfce7;
+  color:#166534;
+  display:block;
+}
+
+.email-message.error{
+  background:#fee2e2;
+  color:#dc2626;
+  display:block;
+}
+
+/* ACTIONS */
+.actions{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+.note{
+  text-align:center;
+  margin-top:12px;
+  color:var(--muted);
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .meta-row{
+    flex-direction:column;
+    gap:4px;
+  }
+  .email-input-group{
+    flex-direction:column;
+  }
+  .send-email-btn{
+    width:100%;
+    text-align:center;
+  }
+  .top{
+    flex-direction:column;
+    text-align:center;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <div class="top">
+    <div class="brand">Fun Travels - Success</div>
+    <button class="btn btn-dark" onclick="showPageLoader('index.html',300)">🏠 Home</button>
+  </div>
+</div>
+
+<div class="wrap">
+<div class="card">
+
+<div class="success-icon">✓</div>
+<div class="title">Booking Confirmed</div>
+<div class="sub">Your ticket is successfully booked</div>
+
+<div class="ticket">
+  <div class="route" id="routeText">- → -</div>
+
+  <div class="meta-row"><span>ID</span><span id="bookingId"></span></div>
+  <div class="meta-row"><span>Passenger</span><span id="passenger"></span></div>
+  <div class="meta-row"><span>Seats</span><span id="seats"></span></div>
+  <div class="meta-row"><span>Amount</span><span id="amountPaid"></span></div>
+</div>
+
+<!-- EMAIL SECTION - NO POPUP -->
+<div class="email-section">
+  <h4>📧 Get Ticket on Email</h4>
+  <div class="email-input-group">
+    <input type="email" id="userEmail" class="email-input" placeholder="Enter your email address">
+    <button class="send-email-btn" id="sendEmailBtn">Send Ticket by Email</button>
+  </div>
+  <div id="emailMessage" class="email-message"></div>
+</div>
+
+<div class="actions">
+  <button class="btn btn-primary" onclick="window.print()">🖨️ Print</button>
+  <button class="btn btn-light" onclick="showPageLoader('mybookings.html',300)">📋 My Bookings</button>
+</div>
+
+<div class="note">Have a safe journey 🚀</div>
+
+</div>
+</div>
+
+<script>
+const data = JSON.parse(localStorage.getItem("ft_last_paid") || "{}");
+
+if(!data.bookingId){
+  alert("No booking found");
+  location.href = "index.html";
+}
+
+document.getElementById("routeText").innerText = `${data.from} → ${data.to}`;
+document.getElementById("bookingId").innerText = data.bookingId;
+document.getElementById("passenger").innerText = data.passenger;
+document.getElementById("seats").innerText = (data.seats || []).join(", ");
+document.getElementById("amountPaid").innerText = "₹" + (data.grandTotal || data.total);
+
+// ========== EMAIL FUNCTION (NO POPUP) ==========
+function sendTicketByEmail(email) {
+  const subject = `Fun Travels - Ticket Confirmation (${data.bookingId})`;
+  const body = `
+🎫 FUN TRAVELS - TICKET CONFIRMATION
+=====================================
+
+Dear ${data.passenger},
+
+Your bus ticket has been successfully booked!
+
+📋 BOOKING DETAILS:
+-------------------
+Booking ID: ${data.bookingId}
+Route: ${data.from} → ${data.to}
+Date: ${data.date}
+Bus: ${data.operator} (${data.type})
+Departure: ${data.dep}
+Arrival: ${data.arr}
+
+💺 SEAT DETAILS:
+---------------
+Seats: ${(data.seats || []).join(", ")}
+Boarding Point: ${data.boarding || "Anna Nagar"}
+Dropping Point: ${data.dropping || "Majestic"}
+
+👤 PASSENGER:
+------------
+Name: ${data.passenger}
+Phone: ${data.phone}
+
+💰 PAYMENT SUMMARY:
+------------------
+Total Paid: ₹${data.grandTotal || data.total}
+Payment Method: ${data.paymentMethod || "ONLINE"}
+
+✅ Status: CONFIRMED
+
+Thank you for choosing Fun Travels!
+Have a safe journey! 🚀
+
+For support: support@funtravels.com | +91 98765 43210
+  `.trim();
+
+  const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.open(mailtoLink, '_blank');
+  
+  // Store email record
+  const emailRecord = {
+    bookingId: data.bookingId,
+    email: email,
+    sentAt: new Date().toLocaleString()
+  };
+  const emails = JSON.parse(localStorage.getItem('ft_emails') || '[]');
+  emails.push(emailRecord);
+  localStorage.setItem('ft_emails', JSON.stringify(emails));
+}
+
+// Send email button click
+document.getElementById("sendEmailBtn").addEventListener("click", () => {
+  const email = document.getElementById("userEmail").value.trim();
+  const messageDiv = document.getElementById("emailMessage");
+  
+  if(!email) {
+    messageDiv.className = "email-message error";
+    messageDiv.innerHTML = "❌ Please enter your email address";
+    setTimeout(() => {
+      messageDiv.className = "email-message";
+      messageDiv.innerHTML = "";
+    }, 3000);
+    return;
+  }
+  
+  if(!email.includes('@') || !email.includes('.')) {
+    messageDiv.className = "email-message error";
+    messageDiv.innerHTML = "❌ Please enter a valid email address (e.g., name@example.com)";
+    setTimeout(() => {
+      messageDiv.className = "email-message";
+      messageDiv.innerHTML = "";
+    }, 3000);
+    return;
+  }
+  
+  // Clear after 5 seconds
+  setTimeout(() => {
+    messageDiv.className = "email-message";
+    messageDiv.innerHTML = "";
+  }, 5000);
+});
+</script>
+</body>
+</html>

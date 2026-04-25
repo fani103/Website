@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Text Formartting</title>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+        <style>
+            html{
+                scroll-behavior: smooth;
+            }
+            body{
+                margin: 0;
+                background-color: #f0f8ff;
+                font-family: monospace;
+                animation: fadeIn 1s ease-in;
+            }
+            @keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+            header{
+                background-color:#2196f3;
+                color:white;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 20px;
+                text-align: center;
+top: 0;
+
+            }
+            header h1{
+                font-size: 50px;
+                margin: 0;
+                color: white;
+            }
+            .button{
+                height: 40px;
+                width: 140px;
+                background-color: white;
+                border-radius: 20px;
+                border: none;
+                color: #2196f3;
+                font-weight: bold;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+            .button:hover{
+                background-color: chartreuse;
+                color: black;
+                transform: scale(1.1);
+            }
+            main{
+                padding: 30px;
+            }
+            section{
+                min-height: 100vh;
+                padding: 30px;
+                background: white;
+                margin-bottom: 30px;
+                border-radius: 20px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                display: flex;
+                justify-content: center;
+                text-align: center;
+                align-items: center;
+                flex-direction: column;
+            }
+            section:hover{
+transform: scale(1.01);
+transition: 0.3s;
+}
+            h1{
+                color: #2196f3;
+            font-size: 40px;
+            }
+            header a{
+text-decoration: none;
+}
+img{
+width:200px;
+border-radius:50%;
+border:4px solid #2196f3;
+margin:20px 0;
+transition:0.3s;
+}
+
+img:hover{
+transform:scale(1.1);
+}
+ol li{
+    padding: 5px;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th,td{
+    padding: 10px;
+    border: 1px solid gray;
+    text-align: center;
+}
+th{
+    background-color: #2196f3;
+    color: white;
+}
+#contact form{
+width: 350px;
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+input[type="text"],
+input[type="email"]{
+height:35px;
+border-radius:6px;
+border:1px solid gray;
+padding:5px;
+width:100%;
+}
+.gender, .interests{
+display: flex;
+gap: 15px;
+justify-content: center;
+}
+label{
+    font-weight: bold;
+}
+tr:nth-child(even){
+background-color:#f2f2f2;
+}
+.submit{
+height: 40px;
+border: none;
+border-radius: 20px;
+background: #1087e1;
+color: white;
+cursor: pointer;
+margin-top: 10px;
+transition: 0.3s
+}
+footer{
+  height:auto;
+  background:black;
+  color:gray;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+  gap:10px;
+}
+footer p{
+margin:0;
+font-size:14px;
+}
+.social-wrapper {
+  display:flex;
+  list-style:none;
+  padding:0;
+  margin-top:10px;
+  gap:15px;
+}
+
+.social-wrapper .icon {
+  position: relative;
+  background: #ffffff;
+  border-radius: 50%;
+  padding: 12px;
+  width: 45px;
+  height: 45px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.social-wrapper .tooltip {
+  position: absolute;
+  top: -40px;
+  font-size: 14px;
+  background: #ffffff;
+  color: #000;
+  padding: 5px 8px;
+  border-radius: 5px;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+}
+
+.social-wrapper .tooltip::before {
+  position: absolute;
+  content: "";
+  height: 6px;
+  width: 6px;
+  background: #ffffff;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.social-wrapper .icon:hover .tooltip {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.social-wrapper .facebook:hover { background:#1877f2; color:white; }
+.social-wrapper .twitter:hover { background:#1da1f2; color:white; }
+.social-wrapper .instagram:hover { background:#e4405f; color:white; }
+.social-wrapper .github:hover { background:#333; color:white; }
+.social-wrapper .youtube:hover { background:#cd201f; color:white; }
+</style>
+    </head>
+    <body>
+        <header>
+        <h1>Welcome to My Portfolio</h1>
+        <a href="#about">
+<button class="button">About</button>
+</a>
+
+<a href="#skills">
+<button class="button">Skills</button>
+</a>
+
+<a href="#projects">
+<button class="button">Projects</button>
+</a>
+
+<a href="#contact">
+<button class="button">Contact</button>
+</a>
+        </header>
+        <main>
+            <section id="about">
+                        <h1>Paneesh Sathyabama</h1>  
+        <img src="images/img2.png" alt="A photo of me">     
+        <p>I am a passionate web developer with a focus on front-end technologies</p>
+        <p>I am currently Pursuing my B.E in Sathyabama</p>
+        <p>You can learnt web Development from <br>Code with Swaroop</p>
+            </section>
+            <section id="skills">
+                 <h1>My Skills</h1>
+        <ol>
+            <li>Python Basics</li>
+            <li>Html Basics</li>
+            <li>Java Basics</li>
+            <li>C Basics</li>
+        </ol>
+            </section>
+            <section id="projects">
+        <h1>My Projects</h1>
+        <table border="1">
+            <tr>
+                <th>Project</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>Portfolio Website</td>
+                <td>I have built a portfolio website by using  HTML ,CSS & JavaScript</td>
+            </tr>
+                <tr>
+                    <td>Python Simple Calculator</td>
+                    <td>I have built a simple calculator application by using  Python</td>
+                </tr>
+        </table>
+            </section>
+            <section id="contact">
+                        <h2>Contact Me</h2>
+         <p>Feel free to get in touch with no using the form below</p>
+         <form action="">
+            <label for="Name">Name:</label>
+            <input type="text">
+            <br>
+            <label for="email">Email:</label>
+            <input type="email">
+            <br>
+
+            <b>Choose your Gender:</b>
+            <input type="radio" id="male" value="male">
+            <label for="male">Male</label>
+            <input type="radio" id="female" value="female">
+            <label for="female">Female</label>
+            <br>
+
+            <b>Select Your Interests:</b>
+            <input type="checkbox" id="coding" value="coding">
+            <label for="coding">Coding</label>
+            <input type="checkbox" id="reading" value="reading">
+            <label for="reading">Reading</label>
+
+            <br>
+            <label for="bio">Bio (up to 200 characters):</label>
+            <input type="text">
+            <br>
+            <button type="submit" class="submit">Submit</button>
+         </form>
+            </section>
+        </main>
+        <footer>
+            <p>@ 2026 Faneesh Sathyabama. All rights reserved.</p>
+              <ul class="social-wrapper">
+    <li class="icon facebook">
+      <span class="tooltip">Facebook</span>
+      <span><i class="fab fa-facebook-f"></i></span>
+    </li>
+    <li class="icon twitter">
+      <span class="tooltip">Twitter</span>
+      <span><i class="fab fa-x-twitter"></i></span>
+    </li>
+    <li class="icon instagram">
+      <span class="tooltip">Instagram</span>
+      <span><i class="fab fa-instagram"></i></span>
+    </li>
+    <li class="icon github">
+      <span class="tooltip">Github</span>
+      <span><i class="fab fa-github"></i></span>
+    </li>
+    <li class="icon youtube">
+      <span class="tooltip">Youtube</span>
+      <span><i class="fab fa-youtube"></i></span>
+    </ul>    
+    </footer>
+    </body>
+</html>

@@ -1,50 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Canteen - Cart</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modern Canteen - Cart</title>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
+
 <body>
-    <header class="navbar">
-        <div class="nav-container">
-            <div class="logo">🍽️ Modern Canteen</div>
-            <div class="nav-items">
-                <a href="home.html" class="nav-link">Menu</a>
-                <a href="cart.html" class="nav-link active">Cart</a>
-                <button onclick="logout()" class="btn-logout">Logout</button>
-            </div>
-        </div>
-    </header>
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">🍽️ Modern Canteen</div>
+      <div class="nav-items">
+        <a href="home.html" class="nav-link">Menu</a>
+        <a href="cart.html" class="nav-link active">Cart <span id="cart-count" class="badge">0</span></a>
+        <button onclick="logout()" class="btn btn-danger">Logout</button>
+      </div>
+    </div>
+  </header>
 
-    <main class="container">
-        <h2>Your Cart</h2>
-        
-        <div class="cart-content">
-            <div id="cart-items" class="cart-items"></div>
-            
-            <div class="cart-summary">
-                <h3>Order Summary</h3>
-                <div class="summary-row">
-                    <span>Subtotal:</span>
-                    <span>₹<span id="subtotal">0</span></span>
-                </div>
-                <div class="summary-row">
-                    <span>Tax (5%):</span>
-                    <span>₹<span id="tax">0</span></span>
-                </div>
-                <div class="summary-row total">
-                    <span>Total:</span>
-                    <span>₹<span id="total-price">0</span></span>
-                </div>
-                
-                <button onclick="placeOrder()" class="btn-primary full-width">Place Order</button>
-                <button onclick="window.location.href='home.html'" class="btn-secondary full-width">Continue Shopping</button>
-            </div>
-        </div>
-    </main>
+  <main class="container">
+    <h2 class="section-title">Your Cart</h2>
 
-    <script src="script.js"></script>
+    <div class="cart-layout">
+      <div id="cart-items" class="cart-panel"></div>
+
+      <div class="summary-panel">
+        <h3>Order Summary</h3>
+
+        <div class="summary-row"><span>Subtotal</span><span>₹<span id="subtotal">0</span></span></div>
+        <div class="summary-row"><span>Tax (5%)</span><span>₹<span id="tax">0</span></span></div>
+        <div class="summary-row"><span>Service</span><span>₹<span id="service">0</span></span></div>
+        <div class="summary-row total"><span>Total</span><span>₹<span id="total-price">0</span></span></div>
+
+        <button onclick="placeOrder()" class="btn btn-primary full-width">Place Order</button>
+        <p class="muted">Payment: Cash / UPI at counter (demo)</p>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
 </body>
 </html>

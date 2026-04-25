@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fun Travels - My Bookings</title>
+  <link rel="icon" href="images/icon.png">
+  <script src="loader.js"></script>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root {
+  --primary-gold: #C9A227;
+  --primary-sapphire: #0E52B8;
+  --primary-navy: #0D1B2A;
+  --primary-rose: #B76E79;
+  --primary-crimson: #D82639;
+  --primary-emerald: #046A38;
+  --bg-main: #F6F7FB;
+  --bg-card: #FFFFFF;
+  --text-dark: #1A2C3E;
+  --text-muted: #538083;
+  --gradient-primary: linear-gradient(135deg, #0E52B8 0%, #C9A227 100%);
+  --shadow-md: 0 8px 20px rgba(13, 27, 42, 0.12);
+  --success: #046A38;
+  --error: #D82639;
+  --warning: #C9A227;
+}
+
+/* Then update existing colors to use these variables */
+    body{font-family:Arial;background:#f6f7fb;color:#111}
+    .header{position:sticky;top:0;z-index:999;background:#fff;padding:12px 16px;box-shadow:0 2px 12px rgba(0,0,0,.12)}
+    .top{max-width:1000px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:1000}
+    .brand img{width:34px}
+    .btn{border:none;border-radius:12px;padding:10px 14px;font-weight:1000;cursor:pointer;transition:0.2s}
+    .btn-dark{background:#111;color:#fff}
+    .btn-dark:hover{background:#333;transform:translateY(-1px)}
+    .btn-danger{background:#ef4444;color:#fff}
+    .btn-danger:hover{background:#dc2626;transform:translateY(-1px)}
+    .wrap{max-width:1000px;margin:16px auto;padding:0 16px}
+    .card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:14px;box-shadow:0 10px 22px rgba(0,0,0,.06);margin-bottom:12px;transition:transform 0.2s}
+    .card:hover{transform:translateY(-2px)}
+    .row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .id{font-weight:1100;color:#ff6b35}
+    .meta{color:#64748b;font-weight:900;font-size:13px;margin-top:6px;line-height:1.7}
+    .empty{background:#fff;border:1px dashed #cbd5e1;border-radius:16px;padding:18px;color:#64748b;font-weight:1000;text-align:center}
+    .tag{display:inline-block;margin-top:10px;padding:6px 10px;border-radius:999px;font-weight:1000;font-size:12px;border:1px solid #e5e7eb}
+    .paid{background:#ecfdf5;border-color:#bbf7d0;color:#166534}
+    .unpaid{background:#fff7ed;border-color:#fed7aa;color:#9a3412}
+    .button-group{display:flex;gap:10px;flex-wrap:wrap}
+    @media(max-width:640px){
+      .top{flex-direction:column;align-items:flex-start}
+      .row{flex-direction:column}
+      .button-group{width:100%}
+      .button-group .btn{flex:1;text-align:center}
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="top">
+    <div class="brand">
+      <img src="images/icon.png" alt="Fun Travels" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚌</text></svg>'">
+      Fun Travels - My Bookings
+    </div>
+    <div class="button-group">
+      <button class="btn btn-dark" onclick="showPageLoader('index.html', 300)">🔍 New Search</button>
+      <button class="btn btn-dark" onclick="showPageLoader('results.html', 300)">🚌 Results</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div id="list"></div>
+</div>
+
+<script>
+  const LS_BOOKINGS = "ft_bookings";
+  const LS_TAKEN = "ft_takenSeats";
+
+  function getBookings(){
+    return JSON.parse(localStorage.getItem(LS_BOOKINGS) || "[]");
+  }
+
+  function saveBookings(b){
+    localStorage.setItem(LS_BOOKINGS, JSON.stringify(b));
+  }
+
+  function getTakenMemory(){
+    return JSON.parse(localStorage.getItem(LS_TAKEN) || "{}");
+  }
+
+  function saveTakenMemory(mem){
+    localStorage.setItem(LS_TAKEN, JSON.stringify(mem));
+  }
+
+  function render(){
+    const list = document.getElementById("list");
+    const bookings = getBookings();
+
+    if(bookings.length === 0){
+      list.innerHTML = `<div class="empty">📭 No bookings yet. Book from Results page.</div>`;
+      return;
+    }
+
+    list.innerHTML = bookings.map(b => `
+      <div class="card">
+        <div class="row">
+          <div class="id">🎫 Booking ID: ${b.bookingId}</div>
+          <div style="font-weight:1100">₹${b.grandTotal || b.total}</div>
+        </div>
+
+        <div class="row" style="margin-top:8px">
+          <div style="font-weight:1100">🚌 ${b.from} → ${b.to}</div>
+          <div style="font-weight:1100">📅 ${b.date}</div>
+        </div>
+
+        <div class="meta">
+          ${b.operator || "-"} • ${b.type || "-"} • Dep ${b.dep || "-"} • Arr ${b.arr || "-"}<br>
+          💺 Seats: ${(b.seats || []).join(", ")}<br>
+          🚏 Boarding: ${b.boarding || "-"}<br>
+          🛑 Dropping: ${b.dropping || "-"}<br>
+          👤 Passenger: ${b.passenger || "-"} (${b.phone || "-"})<br><br>
+
+          <b>Status:</b> ${b.paymentStatus || "UNPAID"}<br>
+          <b>Payment:</b> ${b.paymentMethod || "-"}<br>
+          <b>Paid At:</b> ${b.paidAt || "-"}<br>
+          <b>Booked at:</b> ${b.createdAt || "-"}
+        </div>
+
+        <div class="tag ${b.paymentStatus === "PAID" ? "paid" : "unpaid"}">${b.paymentStatus || "UNPAID"}</div>
+
+        <div style="margin-top:12px">
+          <button class="btn btn-danger" onclick="cancelBooking('${b.bookingId}')">❌ Cancel Booking</button>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  window.cancelBooking = function(bookingId){
+    const all = getBookings();
+    const booking = all.find(x => x.bookingId === bookingId);
+    if(!booking){ 
+      alert("Booking not found!");
+      return; 
+    }
+
+    const confirmCancel = confirm(`Are you sure you want to cancel booking ${bookingId}?`);
+    if (!confirmCancel) return;
+
+    const updated = all.filter(x => x.bookingId !== bookingId);
+    saveBookings(updated);
+
+    const mem = getTakenMemory();
+    const key = String(booking.busId || "");
+    mem[key] = Array.isArray(mem[key]) ? mem[key] : [];
+    mem[key] = mem[key].filter(seat => !(booking.seats || []).includes(seat));
+    saveTakenMemory(mem);
+
+    render();
+    alert("✅ Booking cancelled successfully!");
+    
+    setTimeout(() => {
+      showPageLoader("mybookings.html", 200);
+    }, 500);
+  };
+
+  render();
+</script>
+<script src="loader.js"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:url(images/img.png);
+background-size:cover;
+background-position:center;
+}        form{
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 40px;
+            width: 300px;
+box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+background: rgba(255, 255, 255, 0.111);
+border-radius: 15px;
+animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn{
+            from{
+                opacity: 1;
+                transform: translateY(0);
+            }
+                        to{
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        input[type="email"],
+        input[type="password"],
+        input[type="text"]{
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            transition:0.3s;
+    }
+    input:focus{
+        transform: scale(1.05);
+        box-shadow:0 0 10px rgba(255,255,255,0.8);
+
+    }
+    form:hover{
+        cursor: pointer;
+    }
+    .gender,
+.interests{
+display:flex;
+gap:15px;
+}
+    .Submit{
+            height: 45px;
+            border: none;
+            border-radius: 20px;
+            background-color:rgb(255, 20, 20);
+            color: white;
+            cursor: pointer;
+            margin-top:-20px;
+            transition: 0.3s;
+            transform: scale(1.05);
+        }
+        .Submit:hover{
+            transform:scale(1.1);
+box-shadow:0 5px 15px rgba(255,0,0,0.6);
+        }
+                label{
+            font-weight:bold;
+                }
+    </style>
+        <form>
+            <div class="ok">
+            <label for="Email">Email:</label>
+            <input type="email" id="email"required>
+            <br>
+            <label for="password">Password:</label>
+            <input type="password" id="password"required>
+            <br>
+            </div>
+            <b>Choose Gender</b>
+            <div class="gender">
+            <label>
+                <input type="radio" name="gender">Male
+            </label>
+            <label>
+                <input type="radio" name="gebder">Female
+            </label>
+            </div>
+            <b>Select your Interests</b>
+            <div class="Interests">
+                <label>
+                    <input type="checkbox">Java Script
+                </label>
+                <label>
+                    <input type="checkbox">Html & CSS
+                </label>
+            </div>
+            <label>Feedback:</label>
+            <input type="text">
+            <br>
+            <button class="Submit">Submit</button>
+        </form>
+</body>
+</html>

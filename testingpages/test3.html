@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Professional Select Menu</title>
+
+<link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+background:#E3f2fd;
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+/* Container */
+
+.select-menu{
+width:300px;
+position:relative;
+}
+
+/* Button */
+
+.select-btn{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:white;
+padding:15px;
+border-radius:8px;
+cursor:pointer;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+font-size:18px;
+}
+
+.select-btn i{
+font-size:24px;
+transition:0.3s;
+}
+
+/* Rotate arrow */
+
+.select-menu.active .select-btn i{
+transform:rotate(180deg);
+}
+
+/* Options */
+
+.options{
+position:absolute;
+top:60px;
+width:100%;
+background:white;
+border-radius:8px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+opacity:0;
+transform:translateY(-10px);
+pointer-events:none;
+transition:0.3s;
+}
+
+/* Show menu */
+
+.select-menu.active .options{
+opacity:1;
+transform:translateY(0);
+pointer-events:auto;
+}
+
+/* Option */
+
+.option{
+display:flex;
+align-items:center;
+padding:12px;
+cursor:pointer;
+}
+
+.option:hover{
+background:#f2f2f2;
+}
+
+.option i{
+font-size:22px;
+margin-right:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="select-menu">
+
+<div class="select-btn" tabindex="0">
+<span class="sBtn-text">Select option</span>
+<i class="bx bx-chevron-down"></i>
+</div>
+
+<ul class="options">
+
+<li class="option">
+<i class="bx bxl-github" style="color: #171515;"></i>
+<span class="option-text">Github</span>
+</li>
+
+<li class="option">
+<i class="bx bxl-instagram" style="color: #E1306C;"></i>
+<span class="option-text">Instagram</span>
+</li>
+
+<li class="option">
+<i class="bx bxl-linkedin" style="color: #0077B5;"></i>
+<span class="option-text">LinkedIn</span>
+</li>
+
+<li class="option">
+<i class="bx bxl-facebook" style="color: #1877F2;"></i>
+<span class="option-text">Facebook</span>
+</li>
+
+<li class="option">
+<i class="bx bxl-twitter" style="color: #1DA1F2;"></i>
+<span class="option-text">Twitter</span>
+</li>
+
+</ul>
+
+</div>
+
+<script>
+
+const menu = document.querySelector(".select-menu");
+const btn = document.querySelector(".select-btn");
+const options = document.querySelectorAll(".option");
+const text = document.querySelector(".sBtn-text");
+
+/* open / close */
+
+btn.addEventListener("click",()=>{
+menu.classList.toggle("active");
+});
+
+/* select option */
+
+options.forEach(option=>{
+option.addEventListener("click",()=>{
+text.innerText = option.querySelector(".option-text").innerText;
+menu.classList.remove("active");
+});
+});
+
+/* close if clicked outside */
+
+document.addEventListener("click",(e)=>{
+if(!menu.contains(e.target)){
+menu.classList.remove("active");
+}
+});
+
+/* keyboard support */
+
+btn.addEventListener("keydown",(e)=>{
+
+if(e.key==="Enter"){
+menu.classList.toggle("active");
+}
+
+if(e.key==="Escape"){
+menu.classList.remove("active");
+}
+
+});
+
+</script>
+
+</body>
+</html>

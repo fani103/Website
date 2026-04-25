@@ -1,45 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Canteen - Menu</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Modern Canteen - Menu</title>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
+
 <body>
-    <header class="navbar">
-        <div class="nav-container">
-            <div class="logo">🍽️ Modern Canteen</div>
-            <div class="nav-items">
-                <a href="home.html" class="nav-link active">Menu</a>
-                <a href="cart.html" class="nav-link">
-                    <span class="cart-icon">🛒</span>
-                    Cart <span id="cart-count" class="badge">0</span>
-                </a>
-                <div class="nav-profile">
-                    <span id="user-name">User</span>
-                    <button onclick="logout()" class="btn-logout">Logout</button>
-                </div>
-            </div>
-        </div>
-    </header>
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="logo">🍽️ Modern Canteen</div>
 
-    <div class="hero-banner">
-        <div class="hero-content">
-            <input type="text" id="search-input" class="search-box" placeholder="🔍 Search for food...">
-            <button onclick="searchFood()" class="btn-search">Search</button>
-        </div>
+      <div class="nav-items">
+        <a href="home.html" class="nav-link active">Menu</a>
+
+        <a href="cart.html" class="nav-link">
+          🛒 Cart <span id="cart-count" class="badge">0</span>
+        </a>
+
+        <span class="chip" id="table-chip"></span>
+        <span id="user-name" class="chip"></span>
+
+        <button onclick="logout()" class="btn btn-danger">Logout</button>
+      </div>
     </div>
+  </header>
 
-    <main class="container">
-        <h2>Food Menus</h2>
-        <div id="menu-items" class="menu-grid"></div>
-    </main>
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <h1>Delicious Campus Food</h1>
+        <p>Fast • Fresh • Affordable</p>
+      </div>
 
-    <footer class="footer">
-        <p>Powered by Modern Canteen &copy; 2026</p>
-    </footer>
+      <div class="search-row">
+        <input id="search-input" type="text" class="search-box" placeholder="Search food...">
+        <button onclick="searchFood()" class="btn btn-primary">Search</button>
+      </div>
 
-    <script src="script.js"></script>
+      <div class="filters">
+        <button class="pill active" onclick="setCategory('All')">All</button>
+        <button class="pill" onclick="setCategory('Starters')">Starters</button>
+        <button class="pill" onclick="setCategory('Mains')">Mains</button>
+        <button class="pill" onclick="setCategory('Drinks')">Drinks</button>
+        <button class="pill" onclick="setCategory('Desserts')">Desserts</button>
+
+        <div class="divider"></div>
+
+        <button class="pill" onclick="toggleVegOnly()">🥗 Veg Only</button>
+        <button class="pill" onclick="sortByPrice()">₹ Sort</button>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+    <h2 class="section-title">Menu</h2>
+    <div id="menu-items" class="menu-grid"></div>
+  </main>
+
+  <!-- Mobile sticky cart bar -->
+  <div class="sticky-cart" id="sticky-cart">
+    <div>
+      <div class="sticky-title">Cart</div>
+      <div class="sticky-sub" id="sticky-sub">0 items • ₹0</div>
+    </div>
+    <button class="btn btn-primary" onclick="window.location.href='cart.html'">View Cart</button>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <footer class="footer">
+    <p>© 2026 Modern Canteen</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>

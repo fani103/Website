@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings | FlyTravels</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        body {
+            background: #f0f2f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 550px;
+            margin: 0 auto;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .booking-card {
+            background: white;
+            border-radius: 24px;
+            padding: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 6px solid #764ba2;
+        }
+        .booking-id {
+            font-family: monospace;
+            font-size: 13px;
+            color: #666;
+        }
+        .bus-name {
+            font-weight: bold;
+            font-size: 18px;
+            margin: 8px 0;
+        }
+        .seats {
+            background: #e9ecef;
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin: 8px 0;
+        }
+        .cancel-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 30px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .empty {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 28px;
+        }
+        .back-home {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #764ba2;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>📋 My Bookings</h2>
+        <div id="bookingsList"></div>
+        <a href="index.html" class="back-home">← Back to Home</a>
+    </div>
+
+    <script>
+        function getLS(key, defaultValue = null) {
+            try {
+                const item = localStorage.getItem(key);
+                return item ? JSON.parse(item) : defaultValue;
+            } catch { return defaultValue; }
+        }
+        function setLS(key, value) {
+            localStorage.setItem(key, JSON.stringify(value));
+        }
+
+        function renderBookings() {
+            const bookings = getLS('ft_bookings', []);
+            const container = document.getElementById('bookingsList');
+            
+            if (bookings.length === 0) {
+                container.innerHTML = `<div class="empty">🚌 No bookings yet.<br><a href="index.html" style="color:#764ba2">Search & Book a bus</a></div>`;
+                return;
+            }
+
+            container.innerHTML = '';
+            bookings.forEach((booking, index) => {
+                const card = document.createElement('div');
+                card.className = 'booking-card';
+                card.innerHTML = `
+                    <div class="booking-id">🎫 ${booking.bookingId}</div>
+                    <div class="bus-name">${booking.busName} (${booking.busType})</div>
+                    <div>📍 Route: Booking from search</div>
+                    <div>⏱ ${booking.departure} → ${booking.arrival}</div>
+                    <div class="seats">🪑 Seats: ${booking.seats.join(', ')}</div>
+                    <div>💰 ₹${booking.totalAmount}</div>
+                    <div>👤 ${booking.passengerName}</div>
+                    <button class="cancel-btn" data-index="${index}">✖ Cancel Booking</button>
+                `;
+                container.appendChild(card);
+            });
+
+            // Add cancel event listeners
+            document.querySelectorAll('.cancel-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const idx = parseInt(btn.getAttribute('data-index'));
+                    if (confirm('Cancel this booking? Seats will be freed.')) {
+                        cancelBooking(idx);
+                    }
+                });
+            });
+        }
+
+        function cancelBooking(index) {
+            let bookings = getLS('ft_bookings', []);
+            const cancelled = bookings[index];
+            if (!cancelled) return;
+
+            // Remove from taken seats
+            let takenMap = getLS('ft_takenSeats', {});
+            if (takenMap[cancelled.busId]) {
+                takenMap[cancelled.busId] = takenMap[cancelled.busId].filter(seat => !cancelled.seats.includes(seat));
+                setLS('ft_takenSeats', takenMap);
+            }
+
+            // Remove booking
+            bookings.splice(index, 1);
+            setLS('ft_bookings', bookings);
+            
+            alert('Booking cancelled successfully!');
+            renderBookings();
+        }
+
+        renderBookings();
+    </script>
+</body>
+</html>

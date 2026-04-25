@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login with OTP - Fun Travels</title>
+  <link rel="icon" href="images/icon.png" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    :root {
+      --primary: #e11d48;
+      --primary-dark: #9f1239;
+      --dark: #111827;
+      --muted: #6b7280;
+      --white: #ffffff;
+      --border: #d1d5db;
+      --soft: #fff5f5;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background:
+        linear-gradient(rgba(15, 23, 42, 0.58), rgba(15, 23, 42, 0.58)),
+        url("images/main.jpg");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 430px;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      padding: 28px 24px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      font-size: 26px;
+      font-weight: 900;
+      color: var(--primary);
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .sub {
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+
+    .trip-box {
+      background: var(--soft);
+      border: 1px solid #ffd5d8;
+      border-radius: 18px;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+    }
+
+    .trip-box strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--dark);
+      font-size: 15px;
+    }
+
+    .trip-box p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #374151;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      height: 50px;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 0 14px;
+      font-size: 15px;
+      outline: none;
+      transition: 0.2s;
+      background: var(--white);
+    }
+
+    input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.10);
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .row input {
+      flex: 1;
+    }
+
+    .send-otp-btn,
+    .login-btn,
+    .verify-btn {
+      border: none;
+      border-radius: 999px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .send-otp-btn {
+      min-width: 110px;
+      height: 50px;
+      background: #111827;
+      color: white;
+      padding: 0 16px;
+    }
+
+    .send-otp-btn:hover {
+      background: #000000;
+    }
+
+    .verify-btn,
+    .login-btn {
+      width: 100%;
+      height: 54px;
+      background: var(--primary);
+      color: white;
+      font-size: 17px;
+      margin-top: 6px;
+    }
+
+    .verify-btn:hover,
+    .login-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .verify-btn[disabled],
+    .send-otp-btn[disabled] {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .helper {
+      text-align: center;
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 14px;
+      color: var(--primary);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .demo-note {
+      margin-top: 16px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 12px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .otp-box {
+      display: none;
+    }
+
+    .otp-box.show {
+      display: block;
+    }
+
+    .status-msg {
+      margin-top: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .countdown {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <div class="brand">
+      <img src="images/icon.png" alt="Fun Travels Logo"
+           onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚌</text></svg>'">
+      <span>Fun Travels</span>
+    </div>
+
+    <h1>Login with OTP</h1>
+    <div class="sub">Continue securely before viewing available buses</div>
+
+    <div class="trip-box">
+      <strong>Your Trip</strong>
+      <p id="tripText">Loading trip details...</p>
+    </div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="nameInput">Name</label>
+        <input type="text" id="nameInput" placeholder="Enter your name" required />
+      </div>
+
+      <div class="form-group">
+        <label for="phoneInput">Mobile Number</label>
+        <div class="row">
+          <input type="tel" id="phoneInput" placeholder="Enter 10-digit mobile number" maxlength="10" required />
+          <button type="button" class="send-otp-btn" id="sendOtpBtn">Send OTP</button>
+        </div>
+        <div class="status-msg" id="statusMsg"></div>
+        <div class="countdown" id="countdown"></div>
+      </div>
+
+      <div class="form-group otp-box" id="otpBox">
+        <label for="otpInput">Enter OTP</label>
+        <input type="text" id="otpInput" placeholder="Enter 6-digit OTP" maxlength="6" />
+      </div>
+
+      <button type="submit" class="verify-btn" id="verifyBtn">Verify OTP & Continue</button>
+    </form>
+
+    <div class="helper">Safe login • Fast booking • Instant confirmation</div>
+    <a href="index.html" class="back-link">← Back to search</a>
+
+    <div class="demo-note">
+      Demo OTP flow for frontend project. When you click <strong>Send OTP</strong>, the OTP will be shown in an alert for testing.
+    </div>
+  </div>
+
+  <script>
+    const tripText = document.getElementById("tripText");
+    const loginForm = document.getElementById("loginForm");
+    const sendOtpBtn = document.getElementById("sendOtpBtn");
+    const verifyBtn = document.getElementById("verifyBtn");
+    const otpBox = document.getElementById("otpBox");
+    const otpInput = document.getElementById("otpInput");
+    const phoneInput = document.getElementById("phoneInput");
+    const nameInput = document.getElementById("nameInput");
+    const statusMsg = document.getElementById("statusMsg");
+    const countdown = document.getElementById("countdown");
+
+    const trip = JSON.parse(localStorage.getItem("ft_search") || "{}");
+    const redirectPage = localStorage.getItem("ft_redirect_after_login") || "results.html";
+
+    let generatedOtp = "";
+    let otpExpiresAt = 0;
+    let timerInterval = null;
+
+    if (trip.from && trip.to && trip.date) {
+      tripText.textContent = `${trip.from} → ${trip.to} | ${trip.date}`;
+    } else {
+      tripText.textContent = "No trip selected. Please go back and search buses first.";
+    }
+
+    function startOtpTimer(seconds) {
+      clearInterval(timerInterval);
+      otpExpiresAt = Date.now() + seconds * 1000;
+
+      timerInterval = setInterval(() => {
+        const remaining = Math.max(0, Math.floor((otpExpiresAt - Date.now()) / 1000));
+
+        if (remaining <= 0) {
+          clearInterval(timerInterval);
+          countdown.textContent = "OTP expired. Please resend OTP.";
+          sendOtpBtn.disabled = false;
+          return;
+        }
+
+        countdown.textContent = `OTP valid for ${remaining}s`;
+      }, 1000);
+    }
+
+    sendOtpBtn.addEventListener("click", function () {
+      const phone = phoneInput.value.trim();
+      const name = nameInput.value.trim();
+
+      if (name.length < 3) {
+        alert("Please enter your name first.");
+        return;
+      }
+
+      if (!/^\d{10}$/.test(phone)) {
+        alert("Please enter a valid 10-digit mobile number.");
+        return;
+      }
+
+      generatedOtp = String(Math.floor(100000 + Math.random() * 900000));
+      localStorage.setItem("ft_demo_otp", generatedOtp);
+
+      otpBox.classList.add("show");
+      sendOtpBtn.disabled = true;
+      statusMsg.textContent = "OTP sent successfully.";
+      otpInput.focus();
+
+      alert("Demo OTP for testing: " + generatedOtp);
+
+      startOtpTimer(60);
+
+      setTimeout(() => {
+        sendOtpBtn.disabled = false;
+      }, 60000);
+    });
+
+    loginForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const phone = phoneInput.value.trim();
+      const name = nameInput.value.trim();
+      const enteredOtp = otpInput.value.trim();
+
+      if (name.length < 3) {
+        alert("Please enter your name.");
+        return;
+      }
+
+      if (!/^\d{10}$/.test(phone)) {
+        alert("Please enter a valid 10-digit mobile number.");
+        return;
+      }
+
+      if (!generatedOtp) {
+        alert("Please send OTP first.");
+        return;
+      }
+
+      if (Date.now() > otpExpiresAt) {
+        alert("OTP expired. Please resend OTP.");
+        return;
+      }
+
+      if (!/^\d{6}$/.test(enteredOtp)) {
+        alert("Please enter a valid 6-digit OTP.");
+        return;
+      }
+
+      if (enteredOtp !== generatedOtp) {
+        alert("Incorrect OTP. Please try again.");
+        return;
+      }
+
+      localStorage.setItem("ft_user", JSON.stringify({
+        phone,
+        name,
+        isLoggedIn: true
+      }));
+
+      window.location.href = redirectPage;
+    });
+  </script>
+</body>
+</html>

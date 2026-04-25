@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>Student Card</title>
+
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial;
+    }
+
+    body{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #0f172a;
+    }
+
+    .card{
+      background-color: aliceblue;
+      text-align: center;
+      padding: 20px;
+      width: 300px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .imag img{
+      width: 120px;
+      border-radius: 50%;
+    }
+
+    .cname{
+      color: gray;
+    }
+
+    .bio p{
+      font-size: 14px;
+      margin: 10px 0;
+    }
+
+    ul{
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li{
+      background-color: lightcoral;
+      margin: 5px;
+      padding: 5px;
+      border-radius: 5px;
+    }
+
+    .btn{
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    button{
+      flex: 1;
+      padding: 7px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .cnt{
+      background-color: #3b82f6;
+      color: white;
+    }
+
+    .dn{
+      background: #10b981;
+      color: white;
+    }
+
+    button:hover{
+      opacity: 0.8;
+    }
+
+    .socialmedia{
+      margin: 15px 0;
+    }
+
+    .socialmedia a{
+      text-decoration: none;
+      font-size: 20px;
+      margin: 0 10px;
+    }
+
+    .socialmedia a:hover{
+      color: #0077b5;
+    }
+
+    .socialmedia a:nth-child(1){
+      color: #1877f2;
+    }
+
+    .socialmedia a:nth-child(2){
+      color: #db4437;
+    }
+
+    .socialmedia a:nth-child(3){
+      color: #0a66c2;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="imag">
+      <img src="images/img.png" alt="card1">
+    </div>
+
+    <div class="name">
+      <h1 id="name">Loading...</h1>
+    </div>
+
+    <div class="cname">
+      <h2 id="course">Loading...</h2>
+    </div>
+
+    <div class="bio">
+      <p id="bio">Loading...</p>
+    </div>
+
+    <div class="skills">
+      <ul id="skillsList"></ul>
+    </div>
+
+    <div class="socialmedia">
+      <a href="#" class="social"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" class="social"><i class="fa-brands fa-google"></i></a>
+      <a href="#" class="social"><i class="fa-brands fa-linkedin-in"></i></a>
+    </div>
+
+    <div class="btn">
+      <button class="cnt" onclick="showEmail()">Contact</button>
+      <button class="dn">Download Resume</button>
+    </div>
+  </div>
+  <script>
+fetch("http://localhost:5000/student")
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("name").innerText = data.name;
+    document.getElementById("course").innerText = data.course;
+    document.getElementById("bio").innerText = data.bio;
+
+    const skillsList = document.getElementById("skillsList");
+    skillsList.innerHTML = "";
+
+    data.skills.forEach(skill => {
+      const li = document.createElement("li");
+      li.innerText = skill;
+      skillsList.appendChild(li);
+    });
+  })
+  .catch(() => {
+    document.getElementById("bio").innerText = "Server not running";
+  });
+</script>
+</body>
+</html>

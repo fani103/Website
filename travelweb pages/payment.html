@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment - Fun Travels</title>
+  <link rel="icon" href="images/icon.png">
+  <script src="loader.js"></script>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root {
+  /* ===== PRIMARY LUXURY COLORS ===== */
+  --primary-gold: #C9A227;
+  --primary-sapphire: #0E52B8;
+  --primary-navy: #0D1B2A;
+  --primary-rose: #B76E79;
+  --primary-crimson: #D82639;
+  --primary-emerald: #046A38;
+  
+  /* ===== BACKGROUND COLORS ===== */
+  --bg-main: #F6F7FB;
+  --bg-card: #FFFFFF;
+  --bg-panel: #F8FAFF;
+  --bg-ice: #D6E6F3;
+  
+  /* ===== TEXT COLORS ===== */
+  --text-dark: #1A2C3E;
+  --text-muted: #538083;
+  --text-light: #6B7280;
+  --text-white: #FFFFFF;
+  --text-gold: #C9A227;
+  
+  /* ===== GRADIENTS ===== */
+  --gradient-primary: linear-gradient(135deg, #0E52B8 0%, #C9A227 100%);
+  --gradient-gold: linear-gradient(135deg, #C9A227 0%, #B76E79 100%);
+  --gradient-emerald: linear-gradient(135deg, #046A38 0%, #538083 100%);
+  
+  /* ===== SHADOWS ===== */
+  --shadow-sm: 0 2px 8px rgba(13, 27, 42, 0.08);
+  --shadow-md: 0 8px 20px rgba(13, 27, 42, 0.12);
+  --shadow-lg: 0 16px 40px rgba(13, 27, 42, 0.16);
+  --shadow-gold: 0 8px 25px rgba(201, 162, 39, 0.25);
+  
+  /* ===== STATUS COLORS ===== */
+  --success: #046A38;
+  --success-bg: rgba(4, 106, 56, 0.1);
+  --error: #D82639;
+  --error-bg: rgba(216, 38, 57, 0.1);
+  --warning: #C9A227;
+  --warning-bg: rgba(201, 162, 39, 0.1);
+  
+  /* Keep existing for compatibility */
+  --primary: #4F46E5;
+  --primary-dark: #3730A3;
+  --primary-soft: #E0E7FF;
+  --accent: #8B5CF6;
+  --accent-soft: #F3E8FF;
+  --bg: #F6F7FB;
+  --card: #FFFFFF;
+  --card-soft: #EEF2FF;
+  --text: #111827;
+  --muted: #64748B;
+  --line: #E5E7EB;
+  --danger: #DC2626;
+  --shadow: 0 10px 30px rgba(15,23,42,.08);
+  --radius: 20px;
+}
+    body{
+      font-family:'Segoe UI', Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    .header{
+      background:#fff;
+      border-bottom:1px solid var(--line);
+      box-shadow:0 4px 16px rgba(15,23,42,.05);
+      position:sticky;
+      top:0;
+      z-index:1000;
+    }
+
+    .top{
+      max-width:1180px;
+      margin:auto;
+      padding:14px 18px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:900;
+      font-size:1.5rem;
+      color:var(--text);
+    }
+
+    .brand img{
+      width:36px;
+      height:36px;
+      object-fit:contain;
+    }
+
+    .btn{
+      border:none;
+      border-radius:14px;
+      padding:11px 16px;
+      font-weight:800;
+      cursor:pointer;
+      transition:.2s ease;
+      font-size:.95rem;
+    }
+
+    .btn-back{
+      background:#fff;
+      color:var(--primary-dark);
+      border:1px solid #c7d2fe;
+    }
+
+    .btn-back:hover{
+      background:var(--primary-soft);
+    }
+
+    .page{
+      max-width:1180px;
+      margin:26px auto;
+      padding:0 18px 40px;
+      display:grid;
+      grid-template-columns:1.35fr .85fr;
+      gap:22px;
+      align-items:start;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid #edf2f7;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .payment-card{
+      padding:28px;
+    }
+
+    .summary-card{
+      padding:24px;
+      position:sticky;
+      top:92px;
+      background:linear-gradient(180deg,#ffffff 0%, #fafbff 100%);
+    }
+
+    .title{
+      font-size:2rem;
+      font-weight:900;
+      margin-bottom:8px;
+      color:var(--text);
+    }
+
+    .sub{
+      color:var(--muted);
+      font-size:.95rem;
+      font-weight:700;
+      margin-bottom:22px;
+      line-height:1.6;
+    }
+
+    .paytabs{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:24px;
+    }
+
+    .tab{
+      min-width:120px;
+      padding:13px 18px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:#fff;
+      font-weight:800;
+      color:#334155;
+      cursor:pointer;
+      transition:.2s ease;
+      flex:1;
+    }
+
+    .tab:hover{
+      border-color:#c7d2fe;
+      background:#f8faff;
+    }
+
+    .tab.active{
+      background:var(--primary-soft);
+      border-color:#c7d2fe;
+      color:var(--primary);
+      box-shadow:inset 0 0 0 1px rgba(79,70,229,.08);
+    }
+
+    .form-box{
+      background:var(--panel);
+      border:1px solid #eef2f7;
+      border-radius:18px;
+      padding:18px;
+    }
+
+    .field{
+      margin-bottom:16px;
+    }
+
+    .field:last-child{
+      margin-bottom:0;
+    }
+
+    .field label{
+      display:block;
+      font-size:.95rem;
+      font-weight:800;
+      color:var(--text);
+      margin-bottom:8px;
+    }
+
+    input, select{
+      width:100%;
+      padding:14px 15px;
+      border-radius:14px;
+      border:1px solid #dbe2ea;
+      outline:none;
+      background:#fff;
+      font-size:15px;
+      transition:.2s ease;
+      color:var(--text);
+    }
+
+    input:focus, select:focus{
+      border-color:var(--primary);
+      box-shadow:0 0 0 4px rgba(79,70,229,.08);
+    }
+
+    .two-col{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .pay-footer{
+      margin-top:22px;
+      padding-top:20px;
+      border-top:1px dashed #e2e8f0;
+    }
+
+    .secure-note{
+      color:var(--muted);
+      font-size:.9rem;
+      font-weight:700;
+      margin-bottom:14px;
+      line-height:1.6;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg,var(--primary),var(--accent));
+      color:#fff;
+      width:100%;
+      padding:15px 18px;
+      font-size:1rem;
+      font-weight:900;
+      border:none;
+      border-radius:16px;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-1px);
+      box-shadow:0 12px 24px rgba(79,70,229,.22);
+    }
+
+    .message{
+      margin-top:12px;
+      font-size:.92rem;
+      font-weight:800;
+      min-height:20px;
+    }
+
+    .summary-title{
+      font-size:1.55rem;
+      font-weight:900;
+      margin-bottom:14px;
+      color:var(--text);
+    }
+
+    .route-box{
+      background:linear-gradient(135deg,#eef2ff,#ffffff);
+      border:1px solid #dbeafe;
+      border-radius:16px;
+      padding:16px;
+      margin-bottom:16px;
+    }
+
+    .route-main{
+      font-size:1.2rem;
+      font-weight:900;
+      color:var(--text);
+      margin-bottom:8px;
+    }
+
+    .summary-meta{
+      color:var(--muted);
+      font-size:.95rem;
+      font-weight:700;
+      line-height:1.8;
+    }
+
+    .fare-box{
+      margin-top:12px;
+      border-top:1px solid #edf2f7;
+      padding-top:12px;
+    }
+
+    .row{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      padding:10px 0;
+      font-weight:800;
+      font-size:1rem;
+      color:var(--text);
+    }
+
+    .row span:first-child{
+      color:#475569;
+      font-weight:800;
+    }
+
+    .row.total{
+      margin-top:4px;
+      padding-top:16px;
+      border-top:1px solid #edf2f7;
+      font-size:1.15rem;
+    }
+
+    .row.total span:last-child{
+      color:var(--accent);
+      font-size:1.85rem;
+      font-weight:900;
+    }
+
+    .chip{
+      display:inline-block;
+      margin-top:12px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:var(--success-soft);
+      color:#166534;
+      font-size:.82rem;
+      font-weight:900;
+    }
+
+    @media(max-width:980px){
+      .page{
+        grid-template-columns:1fr;
+      }
+      .summary-card{
+        position:static;
+      }
+    }
+
+    @media(max-width:640px){
+      .payment-card,
+      .summary-card{
+        padding:18px;
+      }
+      .title{
+        font-size:1.7rem;
+      }
+      .two-col{
+        grid-template-columns:1fr;
+      }
+      .tab{
+        min-width:auto;
+        flex:1 1 100%;
+      }
+      .row.total span:last-child{
+        font-size:1.5rem;
+      }
+      .top{
+        align-items:flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="top">
+      <div class="brand">
+        <img src="images/icon.png" alt="Fun Travels" onerror="this.style.display='none'">
+        Fun Travels - Payment
+      </div>
+      <button class="btn btn-back" type="button" id="backBtn">← Back</button>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="card payment-card">
+      <div class="title">Choose Payment Method</div>
+      <div class="sub">Complete your booking securely. Select a payment option and proceed to confirm your ticket.</div>
+
+      <div class="paytabs">
+        <button class="tab active" data-method="upi" type="button">UPI</button>
+        <button class="tab" data-method="card" type="button">Card</button>
+        <button class="tab" data-method="netbanking" type="button">Netbanking</button>
+      </div>
+
+      <div class="form-box" id="paymentForm"></div>
+
+      <div class="pay-footer">
+        <div class="secure-note">🔒 Your payment details are encrypted and processed securely.</div>
+        <button class="btn-primary" id="payNow" type="button">Pay Now</button>
+        <div class="message" id="payMsg"></div>
+      </div>
+    </div>
+
+    <div class="card summary-card">
+      <div class="summary-title">Order Summary</div>
+
+      <div class="route-box">
+        <div class="route-main" id="routeMain">- → -</div>
+        <div class="summary-meta" id="summaryMeta"></div>
+      </div>
+
+      <div class="fare-box">
+        <div class="row"><span>Subtotal</span><span id="subtotal">₹0</span></div>
+        <div class="row"><span>Tax (5%)</span><span id="tax">₹0</span></div>
+        <div class="row total"><span>Total</span><span id="total">₹0</span></div>
+      </div>
+
+      <div class="chip">🔐 Secure booking</div>
+    </div>
+  </div>
+
+<script>
+  const LS_PAYMENT_DRAFT = "ft_payment_draft";
+  const LS_BOOKINGS = "ft_bookings";
+  const LS_TAKEN = "ft_takenSeats";
+  const LS_LAST_PAID = "ft_last_paid";
+
+  const draft = JSON.parse(localStorage.getItem(LS_PAYMENT_DRAFT) || "{}");
+
+  const backBtn = document.getElementById("backBtn");
+  const routeMain = document.getElementById("routeMain");
+  const summaryMeta = document.getElementById("summaryMeta");
+  const subtotalEl = document.getElementById("subtotal");
+  const taxEl = document.getElementById("tax");
+  const totalEl = document.getElementById("total");
+  const form = document.getElementById("paymentForm");
+  const msg = document.getElementById("payMsg");
+
+  backBtn.addEventListener("click", () => {
+    if (typeof showPageLoader === "function") {
+      showPageLoader("results.html", 300);
+    } else {
+      window.location.href = "results.html";
+    }
+  });
+
+  if (!draft.bookingId) {
+    alert("No payment draft found. Please book again.");
+    if (typeof showPageLoader === "function") {
+      showPageLoader("results.html", 300);
+    } else {
+      window.location.href = "results.html";
+    }
+    throw new Error("No payment draft found");
+  }
+
+  const seats = Array.isArray(draft.seats) ? draft.seats : [];
+  const subtotal = Number(draft.total) || 0;
+  const tax = Math.round(subtotal * 0.05);
+  const grand = subtotal + tax;
+
+  routeMain.innerText = `${draft.from || "-"} → ${draft.to || "-"}`;
+  summaryMeta.innerHTML = `
+    📅 Date: ${draft.date || "-"}<br>
+    🚌 Operator: ${draft.operator || "-"}<br>
+    🪑 Bus: ${draft.type || "-"}<br>
+    💺 Seats: ${seats.length ? seats.join(", ") : "-"}<br>
+    🚏 Boarding: ${draft.boarding || "-"}<br>
+    🛑 Dropping: ${draft.dropping || "-"}<br>
+    👤 Passenger: ${draft.passenger || "-"} (${draft.phone || "-"})<br>
+    🎫 Booking ID: ${draft.bookingId || "-"}
+  `;
+
+  subtotalEl.innerText = "₹" + subtotal;
+  taxEl.innerText = "₹" + tax;
+  totalEl.innerText = "₹" + grand;
+
+  let method = "upi";
+
+  function renderForm() {
+    msg.innerText = "";
+
+    if (method === "upi") {
+      form.innerHTML = `
+        <div class="field">
+          <label for="upi">UPI ID</label>
+          <input id="upi" type="text" placeholder="9019231923@upi" value="9019231923@upi">
+        </div>
+      `;
+    } else if (method === "card") {
+      form.innerHTML = `
+        <div class="field">
+          <label for="cardno">Card Number</label>
+          <input id="cardno" type="text" placeholder="1234 5678 9012 3456" maxlength="19" value="4111111111111111">
+        </div>
+        <div class="two-col">
+          <div class="field">
+            <label for="exp">Expiry</label>
+            <input id="exp" type="text" placeholder="MM/YY" maxlength="5" value="12/25">
+          </div>
+          <div class="field">
+            <label for="cvv">CVV</label>
+            <input id="cvv" type="password" placeholder="123" maxlength="3" value="123">
+          </div>
+        </div>
+      `;
+    } else {
+      form.innerHTML = `
+        <div class="field">
+          <label for="bank">Select Bank</label>
+          <select id="bank">
+            <option value="">Select Bank</option>
+            <option value="SBI">SBI</option>
+            <option value="HDFC">HDFC</option>
+            <option value="ICICI">ICICI</option>
+            <option value="Axis">Axis</option>
+          </select>
+        </div>
+      `;
+    }
+  }
+
+  document.querySelectorAll(".tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      method = tab.dataset.method;
+      renderForm();
+    });
+  });
+
+  renderForm();
+
+  function getTakenMemory() {
+    return JSON.parse(localStorage.getItem(LS_TAKEN) || "{}");
+  }
+
+  function saveTakenMemory(mem) {
+    localStorage.setItem(LS_TAKEN, JSON.stringify(mem));
+  }
+
+  // ========== DISCOUNT COUPONS ENHANCEMENT ==========
+  const coupons = {
+    'SAVE10': { discount: 0.10, message: '10% off!' },
+    'SAVE20': { discount: 0.20, message: '20% off!' },
+    'WELCOME': { discount: 0.15, message: '15% off on first booking!' },
+    'FLAT50': { discount: 0.50, message: '50% off! Limited time!' },
+    'FUN100': { discount: 100, message: '₹100 flat off!', isFlat: true },
+    'FUN200': { discount: 200, message: '₹200 flat off!', isFlat: true }
+  };
+
+  let appliedCoupon = null;
+  let discountAmount = 0;
+
+  function addCouponSection() {
+    const couponHTML = `
+        <div class="field" id="couponSection" style="margin-bottom: 15px;">
+            <label>🎟️ Coupon Code</label>
+            <div style="display:flex;gap:12px;">
+                <input type="text" id="couponCode" placeholder="Enter coupon code (SAVE10, SAVE20, WELCOME, FLAT50, FUN100, FUN200)" style="flex:1;">
+                <button type="button" id="applyCouponBtn" class="btn-back" style="padding:14px 20px; white-space:nowrap;">Apply</button>
+            </div>
+            <div id="couponMessage" style="font-size:12px;margin-top:8px;"></div>
+        </div>
+    `;
+    
+    const fareBox = document.querySelector('.fare-box');
+    if(fareBox && !document.getElementById('couponSection')) {
+        fareBox.insertAdjacentHTML('afterbegin', couponHTML);
+        
+        document.getElementById('applyCouponBtn').addEventListener('click', () => {
+            const code = document.getElementById('couponCode').value.trim().toUpperCase();
+            const currentSubtotal = parseFloat(document.getElementById('subtotal').innerText.replace('₹', ''));
+            const currentTax = parseFloat(document.getElementById('tax').innerText.replace('₹', ''));
+            let currentGrand = currentSubtotal + currentTax;
+            
+            if(coupons[code]) {
+                const coupon = coupons[code];
+                appliedCoupon = code;
+                
+                if(coupon.isFlat) {
+                    discountAmount = Math.min(coupon.discount, currentGrand);
+                } else {
+                    discountAmount = currentSubtotal * coupon.discount;
+                }
+                
+                const newGrand = currentGrand - discountAmount;
+                document.getElementById('total').innerHTML = `₹${Math.max(0, newGrand.toFixed(2))}`;
+                document.getElementById('couponMessage').innerHTML = `<span style="color:green;">✅ Coupon applied! You saved ₹${discountAmount.toFixed(2)}</span>`;
+                window.finalGrandTotal = newGrand;
+            } else {
+                document.getElementById('couponMessage').innerHTML = `<span style="color:red;">❌ Invalid coupon code</span>`;
+                appliedCoupon = null;
+                discountAmount = 0;
+                document.getElementById('total').innerHTML = `₹${currentGrand}`;
+                window.finalGrandTotal = currentGrand;
+            }
+        });
+    }
+  }
+
+  document.getElementById("payNow").addEventListener("click", () => {
+    msg.style.color = varToColor("--danger");
+    msg.innerText = "";
+
+    if (method === "upi") {
+      const upi = (document.getElementById("upi")?.value || "").trim();
+      if (!upi || !upi.includes("@")) {
+        msg.innerText = "Enter valid UPI ID";
+        return;
+      }
+    }
+
+    if (method === "card") {
+      const cardno = (document.getElementById("cardno")?.value || "").replace(/\s/g, "");
+      const exp = (document.getElementById("exp")?.value || "").trim();
+      const cvv = (document.getElementById("cvv")?.value || "").trim();
+
+      if (cardno.length < 12) {
+        msg.innerText = "Enter valid card number";
+        return;
+      }
+      if (!/^\d{2}\/\d{2}$/.test(exp)) {
+        msg.innerText = "Enter expiry in MM/YY format";
+        return;
+      }
+      if (!/^\d{3}$/.test(cvv)) {
+        msg.innerText = "Enter valid CVV";
+        return;
+      }
+    }
+
+    if (method === "netbanking") {
+      const bank = document.getElementById("bank")?.value || "";
+      if (!bank) {
+        msg.innerText = "Please select a bank";
+        return;
+      }
+    }
+
+    const mem = getTakenMemory();
+    const key = String(draft.busId || "default");
+    mem[key] = Array.isArray(mem[key]) ? mem[key] : [];
+
+    for (const seat of seats) {
+      if (!mem[key].includes(seat)) {
+        mem[key].push(seat);
+      }
+    }
+
+    saveTakenMemory(mem);
+
+    // Use finalGrandTotal if coupon was applied
+    const finalTotal = window.finalGrandTotal || grand;
+    
+    const booking = {
+      ...draft,
+      seats,
+      total: subtotal,
+      tax,
+      grandTotal: finalTotal,
+      paymentMethod: method.toUpperCase(),
+      paymentStatus: "PAID",
+      paidAt: new Date().toLocaleString(),
+      createdAt: new Date().toLocaleString()
+    };
+
+    const all = JSON.parse(localStorage.getItem(LS_BOOKINGS) || "[]");
+    all.unshift(booking);
+    localStorage.setItem(LS_BOOKINGS, JSON.stringify(all));
+
+    localStorage.removeItem(LS_PAYMENT_DRAFT);
+    localStorage.setItem(LS_LAST_PAID, JSON.stringify(booking));
+
+    msg.style.color = "#15803d";
+    msg.innerText = "✅ Payment successful! Redirecting...";
+
+    setTimeout(() => {
+      if (typeof showPageLoader === "function") {
+        showPageLoader("success.html", 300);
+      } else {
+        window.location.href = "success.html";
+      }
+    }, 700);
+  });
+
+  function varToColor(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || "#dc2626";
+  }
+
+  // Initialize coupon section when page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    addCouponSection();
+  });
+</script>
+</body>
+</html>
